@@ -42,11 +42,12 @@ android {
 dependencies {
 
     implementation(libs.androidx.lifecycle.viewmodel.compose.android)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.runtime.livedata)
 
     // kapt
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
