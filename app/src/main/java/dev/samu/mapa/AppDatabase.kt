@@ -4,11 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import dev.samu.mapa.data.Bookmark
+import dev.samu.mapa.data.BookmarkDao
+import dev.samu.mapa.data.BookmarkType
+import dev.samu.mapa.data.BookmarkTypeDao
 
-@Database(entities = [Task::class, TypeTask::class], version = 2)
+@Database(entities = [Bookmark::class, BookmarkType::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun taskDao(): TaskDao
-    abstract fun typeTaskDao(): TypeTaskDao
+    abstract fun bookmarkDao(): BookmarkDao
+    abstract fun bookmarkTypeDao(): BookmarkTypeDao
 
     companion object {
         @Volatile
@@ -19,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "task_database"
+                    "bookmark_database"
                 ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
