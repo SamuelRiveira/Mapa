@@ -45,33 +45,37 @@ android {
 
 dependencies {
     // ViewModel y LiveData
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.6")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.runtime.livedata)
 
     // Room
-    implementation("androidx.room:room-ktx:2.6.1")
-    ksp("androidx.room:room-compiler:2.5.0")
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler.v250)
+
+    // osmdroid
+    implementation(libs.osmdroid.android)
+    implementation(libs.mapcompose)
 
     // Core y Compose
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.activity:activity-compose:1.9.3")
-    implementation(platform("androidx.compose:compose-bom:2024.04.01"))
-    implementation("androidx.compose.ui:ui:1.6.6")
-    implementation("androidx.compose.ui:ui-graphics:1.6.6")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.6.6")
-    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v261)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.bom)
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.ui.tooling.preview)
+    implementation(libs.material3)
 
     // Pruebas
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.04.01"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.6.6")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit.v115)
+    androidTestImplementation(libs.androidx.espresso.core.v351)
+    androidTestImplementation(libs.androidx.compose.bom)
+    androidTestImplementation(libs.ui.test.junit4)
 
     // Herramientas de depuración
-    debugImplementation("androidx.compose.ui:ui-tooling:1.6.6")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.6")
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
 }

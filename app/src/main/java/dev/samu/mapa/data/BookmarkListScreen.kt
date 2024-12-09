@@ -15,7 +15,7 @@ fun BookmarkListScreen(
 ) {
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         var title by remember { mutableStateOf("") }
-        var url by remember { mutableStateOf("") }
+        var coordinates by remember { mutableStateOf("") }
 
         OutlinedTextField(
             value = title,
@@ -24,17 +24,17 @@ fun BookmarkListScreen(
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
         OutlinedTextField(
-            value = url,
-            onValueChange = { url = it },
-            label = { Text("URL") },
+            value = coordinates,
+            onValueChange = { coordinates = it },
+            label = { Text("Coordenadas") },
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
         )
 
         Button(onClick = {
-            if (title.isNotBlank() && url.isNotBlank()) {
-                onAddBookmark(Bookmark(title = title, url = url, typeId = 1))
+            if (title.isNotBlank() && coordinates.isNotBlank()) {
+                onAddBookmark(Bookmark(title = title, coordinates = coordinates, typeId = 1))
                 title = ""
-                url = ""
+                coordinates = ""
             }
         }, modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
             Text("Add Bookmark")
@@ -44,7 +44,7 @@ fun BookmarkListScreen(
             items(bookmarks) { bookmark ->
                 Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
                     Text(text = bookmark.title, style = MaterialTheme.typography.bodyLarge)
-                    Text(text = bookmark.url, style = MaterialTheme.typography.bodyMedium)
+                    Text(text = bookmark.coordinates, style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
