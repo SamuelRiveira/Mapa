@@ -21,36 +21,44 @@ class BookmarkViewModel(
     private val _bookmarks = MutableStateFlow<List<Bookmark>>(emptyList())
     val bookmarks: StateFlow<List<Bookmark>> get() = _bookmarks
 
+    private val _bookmarkstype = MutableStateFlow<List<BookmarkType>>(emptyList())
+    val bookmarkstype: MutableStateFlow<List<BookmarkType>> get() = _bookmarkstype
+
     init {
-        insertInitialData()
+        datosIniciales()
         loadBookmarks()
     }
 
-    private fun insertInitialData() {
+    private fun datosIniciales() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val tipos = listOf(
-                    BookmarkType(name = ""),
-                    BookmarkType(name = ""),
+                val types = listOf(
+                    BookmarkType(name = "restaurante"),
+                    BookmarkType(name = "hoteles"),
                     BookmarkType(name = ""),
                     BookmarkType(name = "")
                 )
 
-                val tiposFromDb = bookmarkTypeDao.getAllBookmarkTypes().first()
+                val typesFromDb = bookmarkTypeDao.getAllBookmarkTypes().first()
 
-                if (tiposFromDb.isEmpty()) {
-                    tipos.forEach {
+                if (typesFromDb.isEmpty()) {
+                    types.forEach {
                         bookmarkTypeDao.insert(it)
                     }
                 }
 
-                val tiposFromDbUpdated = bookmarkTypeDao.getAllBookmarkTypes().first()
+                val typesFromDbUpdated = bookmarkTypeDao.getAllBookmarkTypes().first()
 
-                val marcadores = listOf(
-                    Bookmark(title = "", coordinatesX = 28.967902090837306, coordinatesY = -13.555125199766206, typeId = tiposFromDbUpdated[0].id)
+                val bookmarks = listOf(
+                    Bookmark(title = "El Rincón Granaino", coordinatesX = 28.959553018383676, coordinatesY = -13.555123342189601, typeId = typesFromDbUpdated[0].id),
+                    Bookmark(title = "Blue 17 Roof Top Restaurant & Bar", coordinatesX = 28.95751067622733, coordinatesY = -13.553817879213991, typeId = typesFromDbUpdated[0].id),
+                    Bookmark(title = "Mi NiÑa Café", coordinatesX = 28.958731044811497, coordinatesY = -13.550277363425028, typeId = typesFromDbUpdated[0].id),
+                    Bookmark(title = "Restaurantes La Rústica", coordinatesX = 28.95792372566608, coordinatesY = -13.5506206861682, typeId = typesFromDbUpdated[0].id),
+                    Bookmark(title = "Hotel Miramar", coordinatesX = 28.95921899222448, coordinatesY = -13.546286237350587, typeId = typesFromDbUpdated[0].id),
+                    Bookmark(title = "Hostal San Ginés", coordinatesX = 28.963217926557007, coordinatesY = -13.548174512438036, typeId = typesFromDbUpdated[0].id)
                 )
 
-                marcadores.forEach {
+                bookmarks.forEach {
                     bookmarkDao.insert(it)
                 }
             }

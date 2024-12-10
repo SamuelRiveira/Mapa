@@ -1,5 +1,6 @@
 package dev.samu.mapa.data
 
+import android.graphics.drawable.Drawable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,21 +20,25 @@ import com.utsman.osmandcompose.rememberMarkerState
 import dev.samu.mapa.viewmodel.BookmarkViewModel
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
+import dev.samu.mapa.R
 
 @Composable
 fun BookmarkListScreen(
     viewModel: BookmarkViewModel
 ) {
     val bookmarks by viewModel.bookmarks.collectAsState()
+    val bookmarkstype by viewModel.bookmarkstype.collectAsState()
 
-    MyMapView(bookmarks)
+    MyMapView(bookmarks, bookmarkstype)
 }
 
 @Composable
 fun MyMapView(
     bookmarks: List<Bookmark>,
+    bookmarkType: List<BookmarkType>,
     modifier: Modifier = Modifier
 ) {
+
     val cameraState = rememberCameraState {
         geoPoint = if (bookmarks.isNotEmpty()) {
             GeoPoint(bookmarks[0].coordinatesX, bookmarks[0].coordinatesY)
@@ -60,13 +65,24 @@ fun MyMapView(
         properties = mapProperties
     ) {
         bookmarks.forEach { bookmark ->
+            var icono by remember { mutableStateOf(R.drawable.restaurante) }
+
+            when (bookmark.typeId) {
+                1 -> icono = R.drawable.restaurante
+                2 -> icono = R.drawable.hotel
+//                3 -> icono = R.drawable.icono_viaje
+//                4 -> icono = R.drawable.icono_cultura
+            }
+
             val markerState = rememberMarkerState(
                 geoPoint = GeoPoint(bookmark.coordinatesX, bookmark.coordinatesY)
             )
+
             Marker(
                 state = markerState,
                 title = bookmark.title,
-                snippet = "ID Tipo: ${bookmark.typeId}"
+                snippet = "ID Tipo: ${bookmark.typeId}",
+                icon = icono
             ) {
                 Column(
                     modifier = Modifier
