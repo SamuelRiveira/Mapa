@@ -54,8 +54,8 @@ class BookmarkViewModel(
                     Bookmark(title = "Blue 17 Roof Top Restaurant & Bar", coordinatesX = 28.95751067622733, coordinatesY = -13.553817879213991, typeId = typesFromDbUpdated[0].id),
                     Bookmark(title = "Mi NiÑa Café", coordinatesX = 28.958731044811497, coordinatesY = -13.550277363425028, typeId = typesFromDbUpdated[0].id),
                     Bookmark(title = "Restaurantes La Rústica", coordinatesX = 28.95792372566608, coordinatesY = -13.5506206861682, typeId = typesFromDbUpdated[0].id),
-                    Bookmark(title = "Hotel Miramar", coordinatesX = 28.95921899222448, coordinatesY = -13.546286237350587, typeId = typesFromDbUpdated[0].id),
-                    Bookmark(title = "Hostal San Ginés", coordinatesX = 28.963217926557007, coordinatesY = -13.548174512438036, typeId = typesFromDbUpdated[0].id)
+                    Bookmark(title = "Hotel Miramar", coordinatesX = 28.95921899222448, coordinatesY = -13.546286237350587, typeId = typesFromDbUpdated[1].id),
+                    Bookmark(title = "Hostal San Ginés", coordinatesX = 28.963217926557007, coordinatesY = -13.548174512438036, typeId = typesFromDbUpdated[1].id)
                 )
 
                 bookmarks.forEach {

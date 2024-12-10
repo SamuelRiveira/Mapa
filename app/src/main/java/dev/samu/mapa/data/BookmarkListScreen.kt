@@ -9,8 +9,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import com.utsman.osmandcompose.DefaultMapProperties
 import com.utsman.osmandcompose.Marker
 import com.utsman.osmandcompose.OpenStreetMap
@@ -65,13 +67,13 @@ fun MyMapView(
         properties = mapProperties
     ) {
         bookmarks.forEach { bookmark ->
-            var icono by remember { mutableStateOf(R.drawable.restaurante) }
+            val context = LocalContext.current
+
+            var icono by remember { mutableStateOf<Drawable?>(null) }
 
             when (bookmark.typeId) {
-                1 -> icono = R.drawable.restaurante
-                2 -> icono = R.drawable.hotel
-//                3 -> icono = R.drawable.icono_viaje
-//                4 -> icono = R.drawable.icono_cultura
+                1 -> icono = ContextCompat.getDrawable(context, R.drawable.restaurante)
+                2 -> icono = ContextCompat.getDrawable(context, R.drawable.hotel)
             }
 
             val markerState = rememberMarkerState(
