@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class Bookmark(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,
-    val coordinates: String,
+    val coordinatesX: Double,
+    val coordinatesY: Double,
     val typeId: Int
 )

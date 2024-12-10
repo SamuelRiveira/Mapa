@@ -1,50 +1,85 @@
 package dev.samu.mapa.data
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.utsman.osmandcompose.DefaultMapProperties
+import com.utsman.osmandcompose.Marker
+import com.utsman.osmandcompose.OpenStreetMap
+import com.utsman.osmandcompose.ZoomButtonVisibility
+import com.utsman.osmandcompose.rememberCameraState
+import com.utsman.osmandcompose.rememberMarkerState
+import dev.samu.mapa.viewmodel.BookmarkViewModel
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
 
 @Composable
 fun BookmarkListScreen(
-    bookmarks: List<Bookmark>,
-    onAddBookmark: (Bookmark) -> Unit
+    viewModel: BookmarkViewModel
 ) {
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        var title by remember { mutableStateOf("") }
-        var coordinates by remember { mutableStateOf("") }
+    val bookmarks by viewModel.bookmarks.collectAsState()
 
-        OutlinedTextField(
-            value = title,
-            onValueChange = { title = it },
-            label = { Text("Title") },
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
-        )
-        OutlinedTextField(
-            value = coordinates,
-            onValueChange = { coordinates = it },
-            label = { Text("Coordenadas") },
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
-        )
+    MyMapView(bookmarks)
+}
 
-        Button(onClick = {
-            if (title.isNotBlank() && coordinates.isNotBlank()) {
-                onAddBookmark(Bookmark(title = title, coordinates = coordinates, typeId = 1))
-                title = ""
-                coordinates = ""
-            }
-        }, modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
-            Text("Add Bookmark")
+@Composable
+fun MyMapView(
+    bookmarks: List<Bookmark>,
+    modifier: Modifier = Modifier
+) {
+    val cameraState = rememberCameraState {
+        geoPoint = if (bookmarks.isNotEmpty()) {
+            GeoPoint(bookmarks[0].coordinatesX, bookmarks[0].coordinatesY)
+        } else {
+            GeoPoint(28.957627225693827, -13.553854217297525)
         }
+        zoom = 17.0
+    }
 
-        LazyColumn {
-            items(bookmarks) { bookmark ->
-                Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
-                    Text(text = bookmark.title, style = MaterialTheme.typography.bodyLarge)
-                    Text(text = bookmark.coordinates, style = MaterialTheme.typography.bodyMedium)
+    var mapProperties by remember {
+        mutableStateOf(DefaultMapProperties)
+    }
+
+    SideEffect {
+        mapProperties = mapProperties
+            .copy(tileSources = TileSourceFactory.MAPNIK)
+            .copy(isEnableRotationGesture = true)
+            .copy(zoomButtonVisibility = ZoomButtonVisibility.NEVER)
+    }
+
+    OpenStreetMap(
+        modifier = modifier.fillMaxSize(),
+        cameraState = cameraState,
+        properties = mapProperties
+    ) {
+        bookmarks.forEach { bookmark ->
+            val markerState = rememberMarkerState(
+                geoPoint = GeoPoint(bookmark.coordinatesX, bookmark.coordinatesY)
+            )
+            Marker(
+                state = markerState,
+                title = bookmark.title,
+                snippet = "ID Tipo: ${bookmark.typeId}"
+            ) {
+                Column(
+                    modifier = Modifier
+                        .size(120.dp)
+                        .background(color = Color.White, shape = RoundedCornerShape(7.dp)),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = it.title)
+                    Text(text = it.snippet, fontSize = 10.sp)
                 }
             }
         }

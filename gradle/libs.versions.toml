@@ -26,6 +26,7 @@ uiTestJunit4 = "1.6.6"
 uiTestManifest = "1.6.6"
 uiTooling = "1.6.6"
 uiToolingPreview = "1.6.6"
+osmAndroidCompose = "0.0.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -57,6 +58,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 mapcompose = { module = "ovh.plrapps:mapcompose", version.ref = "mapcompose" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroid" }
+osm-android-compose = {module = "tech.utsmankece:osm-android-compose", version.ref = "osmAndroidCompose"}
 plrapps-mapcompose = { module = "osm.plrapps:mapcompose", version.ref = "mapcomposeVersion" }
 ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "uiGraphics" }

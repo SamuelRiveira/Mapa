@@ -56,7 +56,7 @@ dependencies {
 
     // osmdroid
     implementation(libs.osmdroid.android)
-    implementation(libs.mapcompose)
+    implementation(libs.osm.android.compose)
 
     // Core y Compose
     implementation(libs.androidx.core.ktx)
