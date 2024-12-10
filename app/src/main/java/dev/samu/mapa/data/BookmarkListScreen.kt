@@ -2,8 +2,6 @@ package dev.samu.mapa.data
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -26,10 +24,8 @@ import org.osmdroid.util.GeoPoint
 fun BookmarkListScreen(
     viewModel: BookmarkViewModel
 ) {
-    // Recolectar el flujo de bookmarks como un estado
     val bookmarks by viewModel.bookmarks.collectAsState()
 
-    // Pasar los bookmarks a la vista del mapa
     MyMapView(bookmarks)
 }
 

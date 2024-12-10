@@ -11,7 +11,7 @@ class BookmarkViewModelFactory(
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(BookmarkViewModel::class.java)) {
-            BookmarkViewModel(bookmarkDao, bookmarkTypeDao) as T // Pasar ambos parámetros
+            BookmarkViewModel(bookmarkDao, bookmarkTypeDao) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
