@@ -85,13 +85,13 @@ fun MyMapView(
             Marker(
                 state = markerState,
                 title = bookmark.title,
-                snippet = "ID Tipo: ${bookmark.typeId}",
                 icon = icono
             ) {
                 Column(
                     modifier = Modifier
                         .size(120.dp)
-                        .background(color = Color.White, shape = RoundedCornerShape(7.dp)),
+                        .background(color = Color.White, shape = RoundedCornerShape(7.dp))
+                        .padding(5.dp),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
