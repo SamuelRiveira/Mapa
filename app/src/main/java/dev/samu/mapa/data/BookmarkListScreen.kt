@@ -74,6 +74,8 @@ fun MyMapView(
             when (bookmark.typeId) {
                 1 -> icono = ContextCompat.getDrawable(context, R.drawable.restaurante)
                 2 -> icono = ContextCompat.getDrawable(context, R.drawable.hotel)
+                3 -> icono = ContextCompat.getDrawable(context, R.drawable.museo)
+                4 -> icono = ContextCompat.getDrawable(context, R.drawable.farmacia)
             }
 
             val markerState = rememberMarkerState(
